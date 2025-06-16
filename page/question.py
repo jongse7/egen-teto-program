@@ -7,7 +7,7 @@ import state
 from utils import page_set
 from components.button import button
 
-def show_question_page(root, page_index, next_page_callback):
+def show_question_page(root, page_index, to_next_page):
     # 기존 위젯 제거
     page_set(root)
 
@@ -59,9 +59,9 @@ def show_question_page(root, page_index, next_page_callback):
     def submit_answers():
         scores = [var.get() for var in selected_values]
         state.answer_scores.extend(scores)
-        next_page_callback()
+        to_next_page()
 
-    # 다음 버튼 먼저 생성 (초기에는 비활성화)
+    # 다음 버튼 생성 (초기에는 비활성화)
     next_button = button(
         root,
         text="다음",
@@ -78,14 +78,14 @@ def show_question_page(root, page_index, next_page_callback):
             if var.get() == 0:
                 all_selected = False
                 break
-
         if all_selected:
             next_button.configure(state="normal", fg_color="#1f6aa5")
         else:
             next_button.configure(state="disabled", fg_color="gray")
 
-    # 공통 콜백 함수 (모든 trace에 이 함수 등록)
-    def on_change(varname, index, mode):
+    # trace 콜백 함수 (*args는 trace 시스템에서 자동으로 전달됨)
+    # → 실제로는 변수 이름, 인덱스, 변경 타입 등이 들어옴 (우리는 쓰지 않음)
+    def on_change(*args):
         check_all_selected()
 
     # 각 IntVar에 trace 걸기

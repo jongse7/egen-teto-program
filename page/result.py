@@ -49,7 +49,7 @@ def show_result_page(root):
         error_label = CTkLabel(root, text=f"이미지를 불러올 수 없습니다: {e}", font=("Pretendard", 12))
         error_label.pack()
 
-    # 이미지 다운로드 버튼튼
+    # 이미지 다운로드 버튼
     download_button = ctk.CTkButton(
         root,
         text="이미지 다운로드",

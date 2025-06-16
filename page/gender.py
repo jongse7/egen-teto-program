@@ -18,13 +18,16 @@ def show_gender_page(root, to_next_page):
     label = ctk.CTkLabel(center_frame, text="성별을 선택해주세요.", font=LABEL_FONT)
     label.pack(pady=(0, 40))
 
+    # 버튼 클릭 시 실행할 함수
     def select_gender(gender):
         state.selected_gender = gender
         to_next_page()
 
+    # 남자 버튼
     male_button = button(center_frame, text="남자", command=lambda: select_gender("남자"))
     male_button.pack(pady=10)
 
+    # 여자 버튼
     female_button = button(center_frame, text="여자", command=lambda: select_gender("여자"),
                            fg_color=PINK_COLOR, hover_color=PINK_HOVER_COLOR)
     female_button.pack(pady=10)
